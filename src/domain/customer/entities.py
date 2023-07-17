@@ -31,8 +31,8 @@ class Customer(Entity):
         self._set('email', kwargs.get('email'))
         self._set('is_active', kwargs.get('is_active'))
 
-    def add_address(self, **kwargs):
-        self._set('address', Address(**kwargs))
+    def add_address(self, address: Address):
+        self._set('address', address)
 
     def activate(self):
         self._set('is_active', True)

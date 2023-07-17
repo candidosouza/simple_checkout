@@ -106,8 +106,25 @@ class TestCustomerIntegration(unittest.TestCase):
             'city': 'fake city'
         }
         customer = Customer(name='Test', email='test@email.com')
-        customer.add_address(**data_address)
+        address = Address(**data_address)
+        customer.add_address(address)
         self.assertEqual(
             customer.address,
-            Address(**data_address)
-        )                           
+            address
+        )
+        self.assertEqual(
+            customer.address.street,
+            data_address['street']
+        )
+        self.assertEqual(
+            customer.address.number,
+            data_address['number']
+        )
+        self.assertEqual(
+            customer.address.zip,
+            data_address['zip']
+        )
+        self.assertEqual(
+            customer.address.city,
+            data_address['city']
+        )                        
