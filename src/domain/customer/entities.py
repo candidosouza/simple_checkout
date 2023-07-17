@@ -41,4 +41,4 @@ class Customer(Entity):
     def validate(cls, name: str, email: str, is_active: bool = None):
         Validator.values(name, 'name').required().string().min_length(3).max_length(255)
         Validator.values(email, 'email').required().string().min_length(5).max_length(255)
-        Validator.values(is_active, 'is_active').required().boolean()
+        Validator.values(is_active, 'is_active').boolean()
