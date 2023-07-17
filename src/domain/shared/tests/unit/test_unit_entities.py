@@ -49,3 +49,20 @@ class TestEntityUnit(unittest.TestCase):
             'ID must be a valid UUID',
         )
 
+    def test_to_dict_method(self):
+        entity = StubEntity(
+            unique_entity_id=UniqueEntityId(
+                'af46842e-027d-4c91-b259-3a3642144ba4'),
+            prop1='value1',
+            prop2='value2',
+        )
+        self.assertDictEqual(entity.to_dict(), {
+            'id': 'af46842e-027d-4c91-b259-3a3642144ba4',
+            'prop1': 'value1',
+            'prop2': 'value2'
+        })
+
+    def test_set_method(self):
+        entity = StubEntity(prop1='value1', prop2='value2',)
+        entity._set('prop1', 'changed')
+        self.assertEqual(entity.prop1, 'changed')
