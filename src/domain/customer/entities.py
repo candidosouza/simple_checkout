@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
+from src.domain.customer.value_object import Address
 
 from src.domain.shared.entities import Entity
 from src.domain.shared.validators import ValidatorRules as Validator
@@ -9,7 +10,7 @@ from src.domain.shared.validators import ValidatorRules as Validator
 class Customer(Entity):
     name: str
     email: str
-    address: Optional[str] = None
+    address: Optional[Address] = None
     is_active: Optional[bool] = True
 
     def __new__(cls, **kwargs):
@@ -29,7 +30,9 @@ class Customer(Entity):
         self._set('name', kwargs.get('name'))
         self._set('email', kwargs.get('email'))
         self._set('is_active', kwargs.get('is_active'))
-        self._set('address', kwargs.get('address'))
+
+    def add_address(self, **kwargs):
+        self._set('address', Address(**kwargs))
 
     def activate(self):
         self._set('is_active', True)
