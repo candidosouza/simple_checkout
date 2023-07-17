@@ -52,7 +52,7 @@ class TestValidatorRulesUnit(unittest.TestCase):
         for data in invalid_data:
             message = f'value: {data["value"]}, prop: {data["prop"]}'
             with self.assertRaises(ValidationException, msg=message) as assert_rules:
-                ValidatorRules.values(  # pylint: disable=expression-not-assigned
+                ValidatorRules.values(
                     data['value'], data['prop']
                 ).string()
             self.assertEqual(
@@ -70,6 +70,35 @@ class TestValidatorRulesUnit(unittest.TestCase):
                 ValidatorRules.values(
                     data['value'], data['prop']
                 ).string(),
+                ValidatorRules
+            )
+
+    def test_integer_rules(self):
+        invalid_data = [
+            {'value': 'string', 'prop': 'prop'},
+            {'value': 1.3, 'prop': 'prop'},
+        ]
+        for data in invalid_data:
+            message = f'value: {data["value"]}, prop: {data["prop"]}'
+            with self.assertRaises(ValidationException, msg=message) as assert_rules:
+                ValidatorRules.values(
+                    data['value'], data['prop']
+                ).integer()
+            self.assertEqual(
+                f'The {data["prop"]} must be a int',
+                assert_rules.exception.args[0],
+            )
+
+        valid_data = [
+            {'value': None, 'prop': 'prop'},
+            {'value': True, 'prop': 'prop'},
+            {'value': 1234567, 'prop': 'prop'},
+        ]
+        for data in valid_data:
+            self.assertIsInstance(
+                ValidatorRules.values(
+                    data['value'], data['prop']
+                ).integer(),
                 ValidatorRules
             )
 
