@@ -1,5 +1,6 @@
 import unittest
 from src.domain.customer.entities import Customer
+from src.domain.customer.value_object import Address
 
 from src.domain.shared.exceptions import ValidationException
 
@@ -96,3 +97,17 @@ class TestCustomerIntegration(unittest.TestCase):
             assert_error.exception.args[0],
             'The email must be a string'
         )
+
+    def test_add_address(self):
+        data_address = {
+            'street': 'fake street',
+            'number': 123,
+            'zip': '00000-000',
+            'city': 'fake city'
+        }
+        customer = Customer(name='Test', email='test@email.com')
+        customer.add_address(**data_address)
+        self.assertEqual(
+            customer.address,
+            Address(**data_address)
+        )                           
