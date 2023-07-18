@@ -26,6 +26,16 @@ class ValidatorRules:
         if self.value is not None and not isinstance(self.value, int):
             raise ValidationException(f'The {self.prop} must be a int')
         return self
+    
+    def float(self) -> 'ValidatorRules':
+        if self.value is not None and not isinstance(self.value, float):
+            raise ValidationException(f'The {self.prop} must be a float')
+        return self
+    
+    def boolean(self) -> 'ValidatorRules':
+        if self.value is not None and self.value is not True and self.value is not False:
+            raise ValidationException(f'The {self.prop} must be a boolean')
+        return self
 
     def max_length(self, max_length: int) -> 'ValidatorRules':
         if self.value is not None and len(self.value) > max_length:
@@ -37,9 +47,4 @@ class ValidatorRules:
         if self.value is not None and len(self.value) < min_length:
             raise ValidationException(
                 f'The {self.prop} must be greater than {min_length} characters')
-        return self
-
-    def boolean(self) -> 'ValidatorRules':
-        if self.value is not None and self.value is not True and self.value is not False:
-            raise ValidationException(f'The {self.prop} must be a boolean')
         return self

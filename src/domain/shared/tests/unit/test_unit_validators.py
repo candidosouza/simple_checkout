@@ -102,6 +102,35 @@ class TestValidatorRulesUnit(unittest.TestCase):
                 ValidatorRules
             )
 
+    def test_float_rules(self):
+        invalid_data = [
+            {'value': 'string', 'prop': 'prop'},
+            {'value': True, 'prop': 'prop'},
+        ]
+        for data in invalid_data:
+            message = f'value: {data["value"]}, prop: {data["prop"]}'
+            with self.assertRaises(ValidationException, msg=message) as assert_rules:
+                ValidatorRules.values(
+                    data['value'], data['prop']
+                ).float()
+            self.assertEqual(
+                f'The {data["prop"]} must be a float',
+                assert_rules.exception.args[0],
+            )
+
+        valid_data = [
+            {'value': None, 'prop': 'prop'},
+            {'value': 1.3, 'prop': 'prop'},
+            {'value': 12345.67, 'prop': 'prop'},
+        ]
+        for data in valid_data:
+            self.assertIsInstance(
+                ValidatorRules.values(
+                    data['value'], data['prop']
+                ).float(),
+                ValidatorRules
+            )
+
     def test_max_length_rules(self):
         invalid_data = [
             {'value': "x" * 5, 'prop': 'prop'},
