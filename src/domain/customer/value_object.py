@@ -3,7 +3,7 @@ from src.domain.shared.value_objects import ValueObject
 from src.domain.shared.validators import ValidatorRules as Validator
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True, slots=True)
 class Address(ValueObject):
     street: str
     number: int
