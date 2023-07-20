@@ -1,0 +1,22 @@
+from abc import ABC
+from dataclasses import dataclass
+from src.domain.shared.entities import Entity
+from src.domain.shared.validators import ValidatorRules
+
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class Product(Entity):
+    name: str
+    price: float
+
+    def __new__(cls, **kwargs):
+        cls.validate(
+            name=kwargs.get('name'),
+            price=kwargs.get('price'),
+        )
+        return super(Product, cls).__new__(cls)
+
+    @classmethod
+    def validate(cls, name: str, price: float):
+        ValidatorRules.values(name, 'name').required().string().min_length(3).max_length(255)
+        ValidatorRules.values(price, 'price').required().float()
