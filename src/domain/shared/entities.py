@@ -16,6 +16,7 @@ class Entity(ABC):
         return str(self.unique_entity_id)
     
     def _set(self, name: str, value: Any):
+        """Set a value to a field of the entity."""
         object.__setattr__(self, name, value)
         return self
     
