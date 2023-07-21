@@ -48,3 +48,17 @@ class TestCustomerUnit(unittest.TestCase):
             customer = Customer(name='test', email='test@rmail.com')
             customer.deactivate()
             self.assertFalse(customer.is_active)
+
+    def test_reward_point(self):
+        with patch.object(Customer, 'validate'):
+            customer = Customer(
+                name='Jhon Doe',
+                email='jhondoe@email.com'
+            )
+            self.assertEqual(customer.reward_point, 0)
+            customer.add_reward_point(5)
+            self.assertEqual(customer.reward_point, 5)
+            customer.add_reward_point(5)
+            self.assertEqual(customer.reward_point, 10)
+            customer.add_reward_point(50)
+            self.assertEqual(customer.reward_point, 60)
