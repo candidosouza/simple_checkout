@@ -15,6 +15,10 @@ class Product(Entity):
             price=kwargs.get('price'),
         )
         return super(Product, cls).__new__(cls)
+    
+    def change_price(self, price: float):
+        self._set('price', price)
+        return self
 
     @classmethod
     def validate(cls, name: str, price: float):
