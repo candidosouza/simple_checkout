@@ -12,6 +12,7 @@ class Customer(Entity):
     email: str
     address: Optional[Address] = None
     is_active: Optional[bool] = True
+    reward_point: Optional[int] = 0
 
     def __new__(cls, **kwargs):
         cls.validate(
@@ -33,6 +34,12 @@ class Customer(Entity):
 
     def add_address(self, address: Address):
         self._set('address', address)
+
+    def add_reward_point(self, point: int):
+        self._set('reward_point', self.reward_point + point)
+
+    def get_reward_point(self):
+        return self.reward_point
 
     def activate(self):
         self._set('is_active', True)
