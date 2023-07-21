@@ -34,3 +34,27 @@ class TestOrderServiceIntegr(unittest.TestCase):
         total = OrderService.total(order)
         self.assertEqual(total, 80.00)
 
+    def test_get_total_of_all_order_with_one_item(self):
+        data = {
+            'customer_id': '123',
+            'items': [
+                OrderItem(
+                    name='Product 1',
+                    product_id='123',
+                    quantity=1,
+                    price=10.00,
+                )
+            ]
+        }
+        order = Order(**data)
+        total = OrderService.total(order)
+        self.assertEqual(total, 10.00)
+
+    def test_get_total_of_all_order_without_item(self):
+        data = {
+            'customer_id': '123',
+            'items': []
+        }
+        order = Order(**data)
+        total = OrderService.total(order)
+        self.assertEqual(total, 0.00)
