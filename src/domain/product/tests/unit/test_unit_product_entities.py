@@ -14,7 +14,8 @@ class TestProductUnit(unittest.TestCase):
         with patch.object(Product, 'validate') as mock_validate:
             product = Product(
                 name='Product 1',
-                price=10.0
+                price=10.0,
+                status='enabled'
             )
             mock_validate.assert_called_once()
             self.assertEqual(product.name, 'Product 1')
@@ -23,7 +24,8 @@ class TestProductUnit(unittest.TestCase):
 
             product = Product(
                 name='Product 2',
-                price=10.0
+                price=10.0,
+                status='enabled'
             )
             self.assertEqual(product.name, 'Product 2')
             self.assertEqual(product.price, 10.0)
@@ -32,7 +34,7 @@ class TestProductUnit(unittest.TestCase):
     def test_is_immutable(self):
         with patch.object(Product, 'validate'):
             with self.assertRaises(FrozenInstanceError):
-                value_object = Product(name='test', price=10.0)
+                value_object = Product(name='test', price=10.0, status='enabled')
                 value_object.name = 'fake id'
 
     def test_throw_exception_when_name_is_invalid(self):
@@ -60,3 +62,11 @@ class TestProductUnit(unittest.TestCase):
         with self.assertRaises(ValidationException) as assert_error:
             Product(name='Product 1', price='100')
         self.assertEqual(str(assert_error.exception), "The price must be a float")
+
+    def test_invalid_status(self):
+        with self.assertRaises(ValueError):
+            Product(
+                name='Product 1',
+                price=10.0,
+                status='enableddddd'
+            )
