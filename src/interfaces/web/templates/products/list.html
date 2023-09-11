@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <h1>Produtos</h1>
+    
+    <a href="">Criar Novo Produto</a>
+    <ul>
+        {% for product in products %}
+            <li>{{ product['name'] }} - {{ product['price'] }} - {{ product['status'] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

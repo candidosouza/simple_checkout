@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Produto</title>
+</head>
+<body>
+    <h1>Criar Produto</h1>
+    <form action="{{ url_for('web.web_products') }}" method="post">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label for="price">Preço:</label>
+        <input type="number" name="price" step="0.01" required><br><br>
+
+        <label for="status">Status:</label>
+        <input type="text" name="status" required><br><br>
+
+        <input type="submit" value="Criar Produto">
+    </form>
+</body>
+</html>

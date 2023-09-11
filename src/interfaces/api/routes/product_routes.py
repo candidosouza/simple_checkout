@@ -5,7 +5,7 @@ from src.interfaces.api.serializers.product_serializers import serialize_product
 api_blueprint = Blueprint('api', __name__)
 
 
-@api_blueprint.route('/products', methods=['GET'])
+@api_blueprint.route('/products/', methods=['GET'])
 def get_products():
     items = [
         {

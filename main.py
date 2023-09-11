@@ -3,7 +3,11 @@ from src.interfaces.app import register_routes
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        template_folder='src/interfaces/web/templates',
+        static_folder='src/interfaces/web/static'
+        )
     register_routes(app)
     return app
 
