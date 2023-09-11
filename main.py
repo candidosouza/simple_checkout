@@ -1,14 +1,17 @@
 from flask import Flask
-from src.interfaces.app import register_routes
+from src.interfaces.api.api_routes import register_api_routes
+from src.interfaces.web.web_routes import register_web_routes
+from config import DevelopmentConfig
 
 
 def create_app():
-    app = Flask(
-        __name__,
-        template_folder='src/interfaces/web/templates',
-        static_folder='src/interfaces/web/static'
-        )
-    register_routes(app)
+    app = Flask(__name__,
+                template_folder=DevelopmentConfig.TEMPLATE_FOLDER,
+                static_folder=DevelopmentConfig.STATIC_FOLDER)
+    app.config.from_object(DevelopmentConfig)
+
+    register_api_routes(app)
+    register_web_routes(app)
     return app
 
 
